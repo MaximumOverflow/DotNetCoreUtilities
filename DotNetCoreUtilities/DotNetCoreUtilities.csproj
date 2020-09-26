@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <Title>DotNetCoreUtilities</Title>
+        <Authors>Massimo Bertozzi</Authors>
+        <Description>A set of safe and unsafe utility methods and classes for the .Net Core platform</Description>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <DefineConstants>TRACE;</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <DefineConstants>TRACE;</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+      <PackageReference Include="FastExpressionCompiler" Version="2.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Unsafe\UnixMemoryHelper.cs">
+        <DependentUpon>MemoryHelper.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+</Project>
