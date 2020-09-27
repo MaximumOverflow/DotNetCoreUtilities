@@ -8,9 +8,24 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls</summary>
 	public static class Constructor<T> where T : new()
 	{
-		public static T New() => new T();
+		private static readonly Func<T> Ctor = Create();
+		public static T New() => Ctor();
+
+		private static Func<T> Create()
+		{
+			var args = Array.Empty<Type>();
+			var ctor = typeof(T).GetConstructor(args);
+			if(ctor == null) 
+				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor");
+
+			var argExpressions = args.Select(Expression.Parameter).ToArray();
+			var ctorExpression = Expression.New(ctor, argExpressions);
+			var expression = Expression.Lambda<Func<T>>(ctorExpression, argExpressions);
+			return expression.CompileFast();
+
+		}
 	}
-		
+
 	/// <summary>An utility class to execute fast duck-typed constructor calls</summary>
 	public static class Constructor<T, TArg0>
 	{
