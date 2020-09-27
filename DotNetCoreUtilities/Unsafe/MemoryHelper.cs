@@ -32,5 +32,10 @@ namespace DotNetCoreUtilities.Unsafe
 				_ => throw new NotImplementedException(),
 			};
 		}
+
+		public static void MemSet(byte* buffer, byte value, int size, int offset = 0)
+		{
+			for(var i = offset; i < size; i++) *( buffer + i ) = value;
+		}
 	}
 }

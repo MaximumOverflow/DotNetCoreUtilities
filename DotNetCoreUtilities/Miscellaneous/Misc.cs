@@ -62,5 +62,7 @@ namespace DotNetCoreUtilities.Miscellaneous
 			readable = (readable / 1024);
 			return readable.ToString("0.### ") + suffix;
 		}
+
+		public static int GetLength(this in Range range) => Math.Abs(range.End.Value - range.Start.Value);
 	}
 }
