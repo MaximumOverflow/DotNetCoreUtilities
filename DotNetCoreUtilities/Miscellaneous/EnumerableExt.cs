@@ -32,26 +32,38 @@ namespace DotNetCoreUtilities.Miscellaneous
             var arr = new TOut[span.Length];
             for (var i = 0; i < arr.Length; i++)
                 arr[i] = select(span[i]);
+            
             return arr;
         }
 
-        public static TOut[] ArraySelectPrependOne<TIn, TOut>(this IReadOnlyList<TIn> list, Func<TIn, TOut> select, TOut first)
+        /// <param name="source">The source list.</param>
+        /// <param name="select">The selection criteria.</param>
+        /// <param name="destination">The destination list.</param>
+        /// <param name="offset">Where to start from when inserting the elements into the destination list.</param>
+        /// <summary>Similar to LINQ's select, but it places the results into the provided destination list.</summary>
+        /// <exception cref="IndexOutOfRangeException">Receiving list must be at least as big as the source list + offset.</exception>
+        public static void InPlaceSelect<TIn, TOut>(this IReadOnlyList<TIn> source, IList<TOut> destination, Func<TIn, TOut> select, int offset = 0)
         {
-            var arr = new TOut[(list?.Count ?? 0) + 1];
-            arr[0] = first;
-            for (var i = 1; i < arr.Length; i++)
-                arr[i] = select(list[i-1]);
-            return arr;
+            if(source.Count > destination.Count - offset) 
+                throw new IndexOutOfRangeException("Receiving list is too small.");
+            
+            for (var i = offset; i < source.Count + offset; i++)
+                destination[i] = select(source[i]);
         }
-        
-        public static TOut[] ArraySelectAppendOne<TIn, TOut>(this IReadOnlyList<TIn> list, Func<TIn, TOut> select, TOut last)
-        {
-            var arr = new TOut[(list?.Count ?? 0) + 1];
-            for (var i = 0; i < arr.Length; i++)
-                arr[i] = select(list[i]);
 
-            arr[^1] = last;
-            return arr;
+        /// <param name="source">The source span.</param>
+        /// <param name="select">The selection criteria.</param>
+        /// <param name="destination">The destination span.</param>
+        /// <param name="offset">Where to start from when inserting the elements into the destination span.</param>
+        /// <summary>Similar to LINQ's select, but it places the results into the provided destination span.</summary>
+        /// <exception cref="IndexOutOfRangeException">The destination span must be at least as big as the source span + offset.</exception>
+        public static void InPlaceSelect<TIn, TOut>(this Span<TIn> source, Span<TOut> destination, Func<TIn, TOut> select, int offset = 0)
+        {
+            if(source.Length > destination.Length - offset) 
+                throw new IndexOutOfRangeException("Destination span is too small.");
+            
+            for (var i = offset; i < source.Length + offset; i++)
+                destination[i] = select(source[i]);
         }
 
         /// <exception cref="InvalidOperationException">The second list must at least be as long as the first one.</exception>
