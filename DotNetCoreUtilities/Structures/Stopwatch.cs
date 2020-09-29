@@ -1,6 +1,6 @@
 using System;
 
-namespace DotNetCoreUtilities.Diagnostics
+namespace DotNetCoreUtilities.Structures
 {
 	/// <summary>An allocation free version of the Stopwatch class in System.Diagnostics</summary>
 	public struct Stopwatch
@@ -9,7 +9,7 @@ namespace DotNetCoreUtilities.Diagnostics
 		private DateTime _stop;
 		private TimeSpan _elapsed;
 		public bool IsRunning { get; private set; }
-		
+
 		public void Start()
 		{
 			_start = DateTime.Now;

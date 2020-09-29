@@ -3,14 +3,15 @@ using System.Runtime.InteropServices;
 
 namespace DotNetCoreUtilities.Unsafe
 {
-	[Flags] public enum UnixMemoryProtection
+	[Flags]
+	public enum UnixMemoryProtection
 	{
 		None = 0,
 		Read = 1,
 		Exec = 4,
 		Write = 2,
 		GrowsUp = 33554432,
-		GrowsDown = 16777216,
+		GrowsDown = 16777216
 	}
 
 	[Flags]
@@ -47,18 +48,18 @@ namespace DotNetCoreUtilities.Unsafe
 		MapHuge512Mb = 1946157056,
 		MapHuge1Gb = 2013265920,
 		MapHuge2Gb = 2080374784,
-		MapHuge16Gb = -2013265920,
+		MapHuge16Gb = -2013265920
 	}
-	
+
 	public static unsafe class UnixMemoryHelper
 	{
 		[DllImport("/usr/lib/libc.so.6", EntryPoint = "munmap")]
 		public static extern int UnmapMemory(void* addr, ulong length);
-		
-		[DllImport("/usr/lib/libc.so.6", EntryPoint = "mprotect")] 
+
+		[DllImport("/usr/lib/libc.so.6", EntryPoint = "mprotect")]
 		public static extern int SetMemoryProtection(void* addr, ulong len, int prot);
-		
-		[DllImport("/usr/lib/libc.so.6", EntryPoint = "mmap")] 
+
+		[DllImport("/usr/lib/libc.so.6", EntryPoint = "mmap")]
 		public static extern void* MapMemory(void* addr, ulong length, int prot, int flags, int fd, ulong offset);
 	}
 }

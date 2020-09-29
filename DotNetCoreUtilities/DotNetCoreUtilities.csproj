@@ -4,9 +4,26 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <Title>DotNetCoreUtilities</Title>
         <Authors>Massimo Bertozzi</Authors>
-        <Description>A set of safe and unsafe utility methods and classes for the .Net Core platform</Description>
+        <Description>.Net Core Utilities is a set of classes and methods aimed at extending .Net's functionality, improving its performance and simplifying its use. 
+
+The library's safe features include:
+- Fast runtime duck typed constructors
+- Duck typed instance/static method retrieval
+- Allocation free deferred object construction
+- Some LINQ style utility functions 
+- Some string utility functions 
+- A value type Stopwatch
+
+The library's unsafe features include:
+- Executable native assembly functions (linux only) 
+- Executable memory buffers (linux only)
+- Unmanaged type conversions
+- Native library loading
+- Native arrays</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <RepositoryUrl>https://github.com/MaximumOverflow/DotNetCoreUtilities</RepositoryUrl>
+        <PackageVersion>1.2.0</PackageVersion>
+        <PackageReleaseNotes>Implemented support for duck-typed method calling/retrieval.</PackageReleaseNotes>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

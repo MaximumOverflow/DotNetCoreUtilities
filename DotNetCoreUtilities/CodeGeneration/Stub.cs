@@ -12,7 +12,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 			var callFunction = Expression.Call(function.Method);
 			return Expression.Lambda<Action>(Expression.Block(callAction, callFunction)).CompileFast();
 		}
-		
+
 		public static Action CreateSucceeding(Action action, Action function)
 		{
 			var callAction = Expression.Call(action.Method);
@@ -26,7 +26,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 			var callFunction = Expression.Call(function.Method);
 			return Expression.Lambda<Func<T>>(Expression.Block(callAction, callFunction)).CompileFast();
 		}
-		
+
 		public static Func<T> CreateSucceeding<T>(Action action, Func<T> function)
 		{
 			var callAction = Expression.Call(action.Method);

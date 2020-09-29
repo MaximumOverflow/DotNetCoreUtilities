@@ -18,37 +18,38 @@ namespace DotNetCoreUtilities.Unsafe
 			Length = length;
 			_handle = Marshal.AllocHGlobal(sizeof(T) * length);
 			_buffer = (T*) _handle;
-			if(zeroFill) MemoryHelper.MemSet((byte*) _buffer, 0, Length * sizeof(T));
+			if (zeroFill) MemoryHelper.MemSet((byte*) _buffer, 0, Length * sizeof(T));
 		}
-		
+
 		public ref T this[int index]
 		{
 			get
 			{
-				if(index < 0 || index >= Length) 
+				if (index < 0 || index >= Length)
 					throw new IndexOutOfRangeException($"Index out of range [{new Range(0, Length)}].");
-				
+
 				return ref _buffer[index];
 			}
 		}
 
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
 		public IEnumerator<T> GetEnumerator() => new Enumerator(_buffer, Length);
 
 		public void Dispose() => Marshal.FreeHGlobal(_handle);
-		
-		public override string ToString() => $"[{StringUtilities.Join<T>(", ", this)}]";
-		
-		public static implicit operator Span<T>(in NativeArray<T> arr) => new Span<T>(arr._buffer, arr.Length);
+
+		public override string ToString() 
+			=> $"[{StringUtilities.Join<T>(", ", this)}]";
+
+		public static implicit operator Span<T>(in NativeArray<T> arr)
+			=> new Span<T>(arr._buffer, arr.Length);
 
 
 		private class Enumerator : IEnumerator<T>
 		{
-			private int _position;
 			private readonly T* _buffer;
 			private readonly int _length;
-			public T Current => _buffer[_position];
-			object IEnumerator.Current => Current;
+			private int _position;
 
 			public Enumerator(T* buffer, int length)
 			{
@@ -57,13 +58,17 @@ namespace DotNetCoreUtilities.Unsafe
 				_position = 0;
 			}
 
+			public T Current => _buffer[_position];
+			object IEnumerator.Current => Current;
+
 			public bool MoveNext()
 			{
 				_position++;
 				return _position < _length;
 			}
-			
-			public void Dispose() { }
+
+			public void Dispose() {}
+
 			public void Reset() => _position = 0;
 		}
 	}

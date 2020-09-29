@@ -5,7 +5,7 @@ namespace DotNetCoreUtilities.Unsafe
 	public static unsafe class MemoryHelper
 	{
 		private static readonly PlatformID PlatformId = Environment.OSVersion.Platform;
-		
+
 		public static int UnmapMemory(void* addr, ulong length)
 		{
 			return PlatformId switch
@@ -20,7 +20,7 @@ namespace DotNetCoreUtilities.Unsafe
 			return PlatformId switch
 			{
 				PlatformID.Unix => UnixMemoryHelper.SetMemoryProtection(addr, len, prot),
-				_ => throw new NotImplementedException(),
+				_ => throw new NotImplementedException()
 			};
 		}
 
@@ -29,13 +29,13 @@ namespace DotNetCoreUtilities.Unsafe
 			return PlatformId switch
 			{
 				PlatformID.Unix => UnixMemoryHelper.MapMemory(addr, length, prot, flags, fd, offset),
-				_ => throw new NotImplementedException(),
+				_ => throw new NotImplementedException()
 			};
 		}
 
 		public static void MemSet(byte* buffer, byte value, int size, int offset = 0)
 		{
-			for(var i = offset; i < size; i++) *( buffer + i ) = value;
+			for (var i = offset; i < size; i++) *(buffer + i) = value;
 		}
 	}
 }
