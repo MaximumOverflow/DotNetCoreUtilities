@@ -3,6 +3,7 @@
 
 The library's safe features include:
 - Fast runtime duck typed constructors
+- Duck typed instance/static method retrieval
 - Allocation free deferred object construction
 - Some LINQ style utility functions 
 - Some string utility functions 
