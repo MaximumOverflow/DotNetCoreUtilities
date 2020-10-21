@@ -13,13 +13,15 @@ The library's safe features include:
 - Some LINQ style utility functions 
 - Some string utility functions 
 - A value type Stopwatch
+- Value type strings
 
 The library's unsafe features include:
 - Executable native assembly functions (linux only) 
 - Executable memory buffers (linux only)
 - Unmanaged type conversions
 - Native library loading
-- Native arrays</Description>
+- Native arrays
+        </Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <RepositoryUrl>https://github.com/MaximumOverflow/DotNetCoreUtilities</RepositoryUrl>
         <PackageVersion>1.2.0</PackageVersion>
