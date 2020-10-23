@@ -14,5 +14,7 @@ namespace DotNetCoreUtilities
 		public static readonly bool IsClass = Type.IsClass;
 		public static readonly bool IsInterface = Type.IsInterface;
 		public static readonly bool IsValueType = Type.IsValueType;
+		
+		public static readonly int Hash = Type.GetHashCode();
 	}
 }

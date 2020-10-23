@@ -7,14 +7,10 @@ namespace DotNetCoreUtilities.Miscellaneous
 	public static class EnumerableExt
 	{
 		public static IEnumerable<T> ThisOrEmpty<T>(this IEnumerable<T> enumerable)
-		{
-			return enumerable ?? Array.Empty<T>();
-		}
+			=> enumerable ?? Array.Empty<T>();
 
 		public static T[] ThisOrEmpty<T>(this T[] en)
-		{
-			return en ?? Array.Empty<T>();
-		}
+			=> en ?? Array.Empty<T>();
 
 		/// <returns>An array containing the selected values.</returns>
 		/// <summary>Same as LINQ's Select method, but returns an array instead.</summary>
@@ -90,7 +86,8 @@ namespace DotNetCoreUtilities.Miscellaneous
 			return list;
 		}
 
-		public static T[] ArrayAppend<T>([NotNull] this IReadOnlyList<T> list, [NotNull] IReadOnlyList<T> append)
+        /// <summary>Constructs a new array containing the elements of the two supplied lists</summary>
+        public static T[] ArrayAppend<T>([NotNull] this IReadOnlyList<T> list, [NotNull] IReadOnlyList<T> append)
 		{
 			var arr = new T[list.Count + append.Count];
 			for (var i = 0; i < list.Count; i++) arr[i] = list[i];
