@@ -55,10 +55,15 @@ namespace DotNetCoreUtilities.CodeGeneration
 
 		private static Func<T> Create()
 		{
+			var type = TypeInfo<T>.Type;
 			var args = Array.Empty<Type>();
-			var ctor = typeof(T).GetConstructor(args);
+			var ctor = type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+			{
+				if(!type.IsValueType) throw new MissingMethodException($"Type {type} does not implement the specified constructor.");
+				var defaultExpression = Expression.New(type);
+				return Expression.Lambda<Func<T>>(defaultExpression).CompileFast();
+			}
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -79,10 +84,10 @@ namespace DotNetCoreUtilities.CodeGeneration
 
 		private static Func<T0, T> Create()
 		{
-			var args = new[] {typeof(T0)};
-			var ctor = typeof(T).GetConstructor(args);
+			var args = new[] {TypeInfo<T0>.Type};
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -103,10 +108,10 @@ namespace DotNetCoreUtilities.CodeGeneration
 
 		private static Func<T0, T1, T> Create()
 		{
-			var args = new[] {typeof(T0), typeof(T1)};
-			var ctor = typeof(T).GetConstructor(args);
+			var args = new[] {TypeInfo<T0>.Type, TypeInfo<T1>.Type};
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -127,10 +132,10 @@ namespace DotNetCoreUtilities.CodeGeneration
 
 		private static Func<T0, T1, T2, T> Create()
 		{
-			var args = new[] {typeof(T0), typeof(T1), typeof(T2)};
-			var ctor = typeof(T).GetConstructor(args);
+			var args = new[] {TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type};
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -151,10 +156,10 @@ namespace DotNetCoreUtilities.CodeGeneration
 
 		private static Func<T0, T1, T2, T3, T> Create()
 		{
-			var args = new[] {typeof(T0), typeof(T1), typeof(T2), typeof(T3)};
-			var ctor = typeof(T).GetConstructor(args);
+			var args = new[] {TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type};
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -175,10 +180,10 @@ namespace DotNetCoreUtilities.CodeGeneration
 
 		private static Func<T0, T1, T2, T3, T4, T> Create()
 		{
-			var args = new[] {typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4)};
-			var ctor = typeof(T).GetConstructor(args);
+			var args = new[] {TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type};
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -199,10 +204,10 @@ namespace DotNetCoreUtilities.CodeGeneration
 
 		private static Func<T0, T1, T2, T3, T4, T5, T> Create()
 		{
-			var args = new[] {typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5)};
-			var ctor = typeof(T).GetConstructor(args);
+			var args = new[] {TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type};
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -223,10 +228,10 @@ namespace DotNetCoreUtilities.CodeGeneration
 
 		private static Func<T0, T1, T2, T3, T4, T5, T6, T> Create()
 		{
-			var args = new[] {typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6)};
-			var ctor = typeof(T).GetConstructor(args);
+			var args = new[] {TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type};
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -249,10 +254,10 @@ namespace DotNetCoreUtilities.CodeGeneration
 		private static Func<T0, T1, T2, T3, T4, T5, T6, T7, T> Create()
 		{
 			var args = new[]
-				{typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7)};
-			var ctor = typeof(T).GetConstructor(args);
+				{TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type};
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -276,12 +281,12 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7),
-				typeof(T8)
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
+				TypeInfo<T8>.Type
 			};
-			var ctor = typeof(T).GetConstructor(args);
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -306,12 +311,12 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7),
-				typeof(T8), typeof(T9)
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
+				TypeInfo<T8>.Type, TypeInfo<T9>.Type
 			};
-			var ctor = typeof(T).GetConstructor(args);
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -336,12 +341,12 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7),
-				typeof(T8), typeof(T9), typeof(T10)
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
+				TypeInfo<T8>.Type, TypeInfo<T9>.Type, TypeInfo<T10>.Type
 			};
-			var ctor = typeof(T).GetConstructor(args);
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -366,12 +371,12 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7),
-				typeof(T8), typeof(T9), typeof(T10), typeof(T11)
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
+				TypeInfo<T8>.Type, TypeInfo<T9>.Type, TypeInfo<T10>.Type, TypeInfo<T11>.Type
 			};
-			var ctor = typeof(T).GetConstructor(args);
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -397,12 +402,12 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7),
-				typeof(T8), typeof(T9), typeof(T10), typeof(T11), typeof(T12)
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
+				TypeInfo<T8>.Type, TypeInfo<T9>.Type, TypeInfo<T10>.Type, TypeInfo<T11>.Type, TypeInfo<T12>.Type
 			};
-			var ctor = typeof(T).GetConstructor(args);
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -428,12 +433,12 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7),
-				typeof(T8), typeof(T9), typeof(T10), typeof(T11), typeof(T12), typeof(T13)
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
+				TypeInfo<T8>.Type, TypeInfo<T9>.Type, TypeInfo<T10>.Type, TypeInfo<T11>.Type, TypeInfo<T12>.Type, TypeInfo<T13>.Type
 			};
-			var ctor = typeof(T).GetConstructor(args);
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -460,12 +465,12 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7),
-				typeof(T8), typeof(T9), typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14)
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
+				TypeInfo<T8>.Type, TypeInfo<T9>.Type, TypeInfo<T10>.Type, TypeInfo<T11>.Type, TypeInfo<T12>.Type, TypeInfo<T13>.Type, TypeInfo<T14>.Type
 			};
-			var ctor = typeof(T).GetConstructor(args);
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -486,20 +491,19 @@ namespace DotNetCoreUtilities.CodeGeneration
 			in T7 arg7, in T8 arg8, in T9 arg9, in T10 arg10, in T11 arg11, in T12 arg12, in T13 arg13, in T14 arg14,
 			in T15 arg15)
 		{
-			return Ctor(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14,
-				arg15);
+			return Ctor(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
 		}
 
 		private static Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T> Create()
 		{
 			var args = new[]
 			{
-				typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7),
-				typeof(T8), typeof(T9), typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14), typeof(T15)
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
+				TypeInfo<T8>.Type, TypeInfo<T9>.Type, TypeInfo<T10>.Type, TypeInfo<T11>.Type, TypeInfo<T12>.Type, TypeInfo<T13>.Type, TypeInfo<T14>.Type, TypeInfo<T15>.Type
 			};
-			var ctor = typeof(T).GetConstructor(args);
+			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {typeof(T)} does not implement the specified constructor.");
+				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);

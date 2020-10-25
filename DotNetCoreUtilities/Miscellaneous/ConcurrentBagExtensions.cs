@@ -4,7 +4,7 @@ using System;
 
 namespace DotNetCoreUtilities.Miscellaneous
 {
-	public static class ConcurrentBagExt
+	public static class ConcurrentBagExtensions
 	{
 		/// <summary>Attempts to retrieve an instance of T from a concurrent bag, returns a new T if it fails</summary>
 		public static T TakeOrCreate<T>(this ConcurrentBag<T> bag) where T : new()

@@ -10,8 +10,8 @@ The library's safe features include:
 - Fast runtime duck typed constructors
 - Duck typed instance/static method retrieval
 - Allocation free deferred object construction
-- Some LINQ style utility functions 
-- Some string utility functions 
+- Some LINQ style utility functions
+- Some string utility functions
 - A value type Stopwatch
 - Value type strings
 
@@ -20,12 +20,12 @@ The library's unsafe features include:
 - Executable memory buffers (linux only)
 - Unmanaged type conversions
 - Native library loading
-- Native arrays
-        </Description>
+- Native arrays</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <RepositoryUrl>https://github.com/MaximumOverflow/DotNetCoreUtilities</RepositoryUrl>
-        <PackageVersion>1.2.0</PackageVersion>
-        <PackageReleaseNotes>Implemented support for duck-typed method calling/retrieval.</PackageReleaseNotes>
+        <PackageVersion>1.3.0</PackageVersion>
+        <PackageReleaseNotes>-Implemented duck-typed fields
+-General performance and usability improvements</PackageReleaseNotes>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -51,6 +51,21 @@ The library's unsafe features include:
       <Compile Update="Unsafe\UnixMemoryHelper.cs">
         <DependentUpon>MemoryHelper.cs</DependentUpon>
       </Compile>
+      <Compile Update="Unsafe\Unsafe.Gen.cs">
+        <DependentUpon>Unsafe.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Unsafe\Unsafe.Helpers.cs">
+        <DependentUpon>Unsafe.cs</DependentUpon>
+      </Compile>
+      <Compile Remove="SrcGen\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="SrcGen\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="SrcGen\**" />
     </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DotNetCoreUtilities.Unsafe;
 
 namespace DotNetCoreUtilities.Miscellaneous
 {
@@ -8,11 +9,13 @@ namespace DotNetCoreUtilities.Miscellaneous
 		public static T ParseFlags<T>(this IEnumerable<string> flagList) where T : unmanaged, Enum
 		{
 			var flags = 0;
-			var type = typeof(T);
 			foreach (var flag in flagList)
-				flags |= (int) Enum.Parse(type, flag);
-
-			return (T) (object) flags;
+			{
+				var res = Enum.Parse<T>(flag);
+				flags |= res.Reinterpret<int, T>();
+			}
+			
+			return flags.Reinterpret<T, int>();
 		}
 
 		/// <param name="i">The byte count</param>

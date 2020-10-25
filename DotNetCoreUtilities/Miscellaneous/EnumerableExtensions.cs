@@ -4,7 +4,7 @@ using System;
 
 namespace DotNetCoreUtilities.Miscellaneous
 {
-	public static class EnumerableExt
+	public static class EnumerableExtensions
 	{
 		public static IEnumerable<T> ThisOrEmpty<T>(this IEnumerable<T> enumerable)
 			=> enumerable ?? Array.Empty<T>();

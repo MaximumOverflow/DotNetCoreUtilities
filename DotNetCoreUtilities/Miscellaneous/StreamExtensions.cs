@@ -1,9 +1,9 @@
-using System.IO;
 using DotNetCoreUtilities.Unsafe;
+using System.IO;
 
 namespace DotNetCoreUtilities.Miscellaneous
 {
-	public static class StreamExt
+	public static class StreamExtensions
 	{
 		public static void Read<T>(this Stream stream, ref T obj) where T : unmanaged
 			=> stream.Read(obj.GetBytes());

@@ -1,6 +1,6 @@
-using System;
-using System.Runtime.InteropServices;
 using static DotNetCoreUtilities.Unsafe.MemoryHelper;
+using System.Runtime.InteropServices;
+using System;
 
 namespace DotNetCoreUtilities.Unsafe
 {
