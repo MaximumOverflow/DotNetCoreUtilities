@@ -1,23 +1,9 @@
 using System;
-using System.Collections.Generic;
-using DotNetCoreUtilities.Unsafe;
 
 namespace DotNetCoreUtilities.Miscellaneous
 {
 	public static class Misc
 	{
-		public static T ParseFlags<T>(this IEnumerable<string> flagList) where T : unmanaged, Enum
-		{
-			var flags = 0;
-			foreach (var flag in flagList)
-			{
-				var res = Enum.Parse<T>(flag);
-				flags |= res.Reinterpret<int, T>();
-			}
-			
-			return flags.Reinterpret<T, int>();
-		}
-
 		/// <param name="i">The byte count</param>
 		/// <summary>Returns an easily readable representation of a byte count.</summary>
 		/// <returns>An easily readable representation of the provided byte count.</returns>

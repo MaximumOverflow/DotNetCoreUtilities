@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System;
 
-namespace DotNetCoreUtilities.Miscellaneous
+namespace DotNetCoreUtilities.Extensions
 {
 	public static class EnumerableExtensions
 	{

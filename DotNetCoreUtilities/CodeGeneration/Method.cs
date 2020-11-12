@@ -1,10 +1,22 @@
-using DotNetCoreUtilities.Miscellaneous;
+using DotNetCoreUtilities.Extensions;
 using System.Collections.Generic;
 using System.Reflection;
 using System;
 
 namespace DotNetCoreUtilities.CodeGeneration
 {
+    public static class Method<T>
+    {
+        public static TDelegate Get<TDelegate>(string name, params Type[] paramTypes) where TDelegate : Delegate
+        {
+            var type = TypeInfo<T>.Type;
+            var methodInfo = type.GetMethod(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, paramTypes, null);
+            if (methodInfo == null) throw new MissingMethodException();
+            var method = methodInfo.CreateDelegate<TDelegate>();
+            return method;
+        }
+    }
+    
 	public static class Method<T, TOut>
 	{
 		public delegate TOut MethodDelegate(T instance);
@@ -29,7 +41,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 
 			return method;
 		}
-	}
+    }
 	
     public static class Method<T, TOut, TIn0>
     {

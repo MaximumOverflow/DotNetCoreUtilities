@@ -2,7 +2,7 @@ using DotNetCoreUtilities.CodeGeneration;
 using System.Collections.Generic;
 using System;
 
-namespace DotNetCoreUtilities.Unsafe
+namespace DotNetCoreUtilities.Extensions
 {
 	public static class ListExtensions
 	{

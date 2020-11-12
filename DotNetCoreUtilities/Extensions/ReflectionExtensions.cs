@@ -1,7 +1,7 @@
-using System;
 using System.Reflection;
+using System;
 
-namespace DotNetCoreUtilities.Miscellaneous
+namespace DotNetCoreUtilities.Extensions
 {
 	public static class ReflectionExtensions
 	{

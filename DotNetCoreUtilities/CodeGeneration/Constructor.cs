@@ -46,7 +46,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T>
 	{
-		private static readonly Func<T> Ctor = Create();
+		public static readonly Func<T> Ctor = Create();
 
 		public static T New()
 		{
@@ -60,7 +60,8 @@ namespace DotNetCoreUtilities.CodeGeneration
 			var ctor = type.GetConstructor(args);
 			if (ctor == null)
 			{
-				if(!type.IsValueType) throw new MissingMethodException($"Type {type} does not implement the specified constructor.");
+				if (!type.IsValueType)
+					throw new MissingMethodException($"Type {type} does not implement the specified constructor.");
 				var defaultExpression = Expression.New(type);
 				return Expression.Lambda<Func<T>>(defaultExpression).CompileFast();
 			}
@@ -75,7 +76,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0>
 	{
-		private static readonly Func<T0, T> Ctor = Create();
+		public static readonly Func<T0, T> Ctor = Create();
 
 		public static T New(in T0 arg0)
 		{
@@ -87,7 +88,8 @@ namespace DotNetCoreUtilities.CodeGeneration
 			var args = new[] {TypeInfo<T0>.Type};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -99,7 +101,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1>
 	{
-		private static readonly Func<T0, T1, T> Ctor = Create();
+		public static readonly Func<T0, T1, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1)
 		{
@@ -111,7 +113,8 @@ namespace DotNetCoreUtilities.CodeGeneration
 			var args = new[] {TypeInfo<T0>.Type, TypeInfo<T1>.Type};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -123,7 +126,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2>
 	{
-		private static readonly Func<T0, T1, T2, T> Ctor = Create();
+		public static readonly Func<T0, T1, T2, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2)
 		{
@@ -135,7 +138,8 @@ namespace DotNetCoreUtilities.CodeGeneration
 			var args = new[] {TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -147,7 +151,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3>
 	{
-		private static readonly Func<T0, T1, T2, T3, T> Ctor = Create();
+		public static readonly Func<T0, T1, T2, T3, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3)
 		{
@@ -159,7 +163,8 @@ namespace DotNetCoreUtilities.CodeGeneration
 			var args = new[] {TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -171,7 +176,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3, T4>
 	{
-		private static readonly Func<T0, T1, T2, T3, T4, T> Ctor = Create();
+		public static readonly Func<T0, T1, T2, T3, T4, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3, in T4 arg4)
 		{
@@ -180,10 +185,12 @@ namespace DotNetCoreUtilities.CodeGeneration
 
 		private static Func<T0, T1, T2, T3, T4, T> Create()
 		{
-			var args = new[] {TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type};
+			var args = new[]
+				{TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -195,7 +202,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3, T4, T5>
 	{
-		private static readonly Func<T0, T1, T2, T3, T4, T5, T> Ctor = Create();
+		public static readonly Func<T0, T1, T2, T3, T4, T5, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3, in T4 arg4, in T5 arg5)
 		{
@@ -204,10 +211,14 @@ namespace DotNetCoreUtilities.CodeGeneration
 
 		private static Func<T0, T1, T2, T3, T4, T5, T> Create()
 		{
-			var args = new[] {TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type};
+			var args = new[]
+			{
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type
+			};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -219,7 +230,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3, T4, T5, T6>
 	{
-		private static readonly Func<T0, T1, T2, T3, T4, T5, T6, T> Ctor = Create();
+		public static readonly Func<T0, T1, T2, T3, T4, T5, T6, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3, in T4 arg4, in T5 arg5, in T6 arg6)
 		{
@@ -228,10 +239,15 @@ namespace DotNetCoreUtilities.CodeGeneration
 
 		private static Func<T0, T1, T2, T3, T4, T5, T6, T> Create()
 		{
-			var args = new[] {TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type};
+			var args = new[]
+			{
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type,
+				TypeInfo<T5>.Type, TypeInfo<T6>.Type
+			};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -243,7 +259,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3, T4, T5, T6, T7>
 	{
-		private static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T> Ctor = Create();
+		public static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3, in T4 arg4, in T5 arg5, in T6 arg6,
 			in T7 arg7)
@@ -254,10 +270,14 @@ namespace DotNetCoreUtilities.CodeGeneration
 		private static Func<T0, T1, T2, T3, T4, T5, T6, T7, T> Create()
 		{
 			var args = new[]
-				{TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type};
+			{
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type,
+				TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type
+			};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -269,7 +289,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3, T4, T5, T6, T7, T8>
 	{
-		private static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T> Ctor = Create();
+		public static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3, in T4 arg4, in T5 arg5, in T6 arg6,
 			in T7 arg7, in T8 arg8)
@@ -281,12 +301,13 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
-				TypeInfo<T8>.Type
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type,
+				TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type, TypeInfo<T8>.Type
 			};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -299,7 +320,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	{
-		private static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T> Ctor = Create();
+		public static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3, in T4 arg4, in T5 arg5, in T6 arg6,
 			in T7 arg7, in T8 arg8, in T9 arg9)
@@ -311,12 +332,13 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
-				TypeInfo<T8>.Type, TypeInfo<T9>.Type
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type,
+				TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type, TypeInfo<T8>.Type, TypeInfo<T9>.Type
 			};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -329,7 +351,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
 	{
-		private static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T> Ctor = Create();
+		public static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3, in T4 arg4, in T5 arg5, in T6 arg6,
 			in T7 arg7, in T8 arg8, in T9 arg9, in T10 arg10)
@@ -341,12 +363,14 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
-				TypeInfo<T8>.Type, TypeInfo<T9>.Type, TypeInfo<T10>.Type
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type,
+				TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type, TypeInfo<T8>.Type, TypeInfo<T9>.Type, 
+				TypeInfo<T10>.Type
 			};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -359,7 +383,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>
 	{
-		private static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T> Ctor = Create();
+		public static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3, in T4 arg4, in T5 arg5, in T6 arg6,
 			in T7 arg7, in T8 arg8, in T9 arg9, in T10 arg10, in T11 arg11)
@@ -371,12 +395,14 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
-				TypeInfo<T8>.Type, TypeInfo<T9>.Type, TypeInfo<T10>.Type, TypeInfo<T11>.Type
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type,
+				TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type, TypeInfo<T8>.Type, TypeInfo<T9>.Type, 
+				TypeInfo<T10>.Type, TypeInfo<T11>.Type
 			};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -390,7 +416,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>
 	{
-		private static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T> Ctor = Create();
+		public static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3, in T4 arg4, in T5 arg5, in T6 arg6,
 			in T7 arg7, in T8 arg8, in T9 arg9, in T10 arg10, in T11 arg11, in T12 arg12)
@@ -402,12 +428,14 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
-				TypeInfo<T8>.Type, TypeInfo<T9>.Type, TypeInfo<T10>.Type, TypeInfo<T11>.Type, TypeInfo<T12>.Type
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type,
+				TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type, TypeInfo<T8>.Type, TypeInfo<T9>.Type, 
+				TypeInfo<T10>.Type, TypeInfo<T11>.Type, TypeInfo<T12>.Type
 			};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -421,7 +449,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>
 	{
-		private static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T> Ctor = Create();
+		public static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T> Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3, in T4 arg4, in T5 arg5, in T6 arg6,
 			in T7 arg7, in T8 arg8, in T9 arg9, in T10 arg10, in T11 arg11, in T12 arg12, in T13 arg13)
@@ -433,12 +461,14 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
-				TypeInfo<T8>.Type, TypeInfo<T9>.Type, TypeInfo<T10>.Type, TypeInfo<T11>.Type, TypeInfo<T12>.Type, TypeInfo<T13>.Type
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type,
+				TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type, TypeInfo<T8>.Type, TypeInfo<T9>.Type, 
+				TypeInfo<T10>.Type, TypeInfo<T11>.Type, TypeInfo<T12>.Type, TypeInfo<T13>.Type
 			};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -452,7 +482,7 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>
 	{
-		private static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T>
+		public static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T>
 			Ctor = Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3, in T4 arg4, in T5 arg5, in T6 arg6,
@@ -465,12 +495,14 @@ namespace DotNetCoreUtilities.CodeGeneration
 		{
 			var args = new[]
 			{
-				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
-				TypeInfo<T8>.Type, TypeInfo<T9>.Type, TypeInfo<T10>.Type, TypeInfo<T11>.Type, TypeInfo<T12>.Type, TypeInfo<T13>.Type, TypeInfo<T14>.Type
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type,
+				TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type, TypeInfo<T8>.Type, TypeInfo<T9>.Type, 
+				TypeInfo<T10>.Type, TypeInfo<T11>.Type, TypeInfo<T12>.Type, TypeInfo<T13>.Type, TypeInfo<T14>.Type
 			};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);
@@ -484,26 +516,30 @@ namespace DotNetCoreUtilities.CodeGeneration
 	/// <summary>An utility class to execute fast duck-typed constructor calls.</summary>
 	public static class Constructor<T, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>
 	{
-		private static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T> Ctor =
+		public static readonly Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T> Ctor =
 			Create();
 
 		public static T New(in T0 arg0, in T1 arg1, in T2 arg2, in T3 arg3, in T4 arg4, in T5 arg5, in T6 arg6,
 			in T7 arg7, in T8 arg8, in T9 arg9, in T10 arg10, in T11 arg11, in T12 arg12, in T13 arg13, in T14 arg14,
 			in T15 arg15)
 		{
-			return Ctor(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
+			return Ctor(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14,
+				arg15);
 		}
 
 		private static Func<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T> Create()
 		{
 			var args = new[]
 			{
-				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type, TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type,
-				TypeInfo<T8>.Type, TypeInfo<T9>.Type, TypeInfo<T10>.Type, TypeInfo<T11>.Type, TypeInfo<T12>.Type, TypeInfo<T13>.Type, TypeInfo<T14>.Type, TypeInfo<T15>.Type
+				TypeInfo<T0>.Type, TypeInfo<T1>.Type, TypeInfo<T2>.Type, TypeInfo<T3>.Type, TypeInfo<T4>.Type,
+				TypeInfo<T5>.Type, TypeInfo<T6>.Type, TypeInfo<T7>.Type, TypeInfo<T8>.Type, TypeInfo<T9>.Type, 
+				TypeInfo<T10>.Type, TypeInfo<T11>.Type, TypeInfo<T12>.Type, TypeInfo<T13>.Type, TypeInfo<T14>.Type, 
+				TypeInfo<T15>.Type
 			};
 			var ctor = TypeInfo<T>.Type.GetConstructor(args);
 			if (ctor == null)
-				throw new MissingMethodException($"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
+				throw new MissingMethodException(
+					$"Type {TypeInfo<T>.Type} does not implement the specified constructor.");
 
 			var argExpressions = args.Select(Expression.Parameter).ToArray();
 			var ctorExpression = Expression.New(ctor, argExpressions);

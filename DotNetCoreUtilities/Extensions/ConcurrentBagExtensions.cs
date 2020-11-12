@@ -2,7 +2,7 @@ using DotNetCoreUtilities.CodeGeneration;
 using System.Collections.Concurrent;
 using System;
 
-namespace DotNetCoreUtilities.Miscellaneous
+namespace DotNetCoreUtilities.Extensions
 {
 	public static class ConcurrentBagExtensions
 	{

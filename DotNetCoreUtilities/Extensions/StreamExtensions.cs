@@ -1,7 +1,7 @@
 using DotNetCoreUtilities.Unsafe;
 using System.IO;
 
-namespace DotNetCoreUtilities.Miscellaneous
+namespace DotNetCoreUtilities.Extensions
 {
 	public static class StreamExtensions
 	{
